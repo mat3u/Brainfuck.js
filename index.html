@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>bf.js - Brainfuck JavaScript interpreter</title>
+		<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript" src="bf.js"></script>
+	</head>
+	<body>
+		<h1>Brainfuck parser in JavaScript</h1>
+		<p>Author: Matt Stasch</p>
+		<label for="bfsrc">Source:</label><br />
+		<textarea id="bfsrc" name="bfsrc" rows="12" cols="64">++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.</textarea><br />
+		<label for="bfin">Input:</label><br />
+		<textarea id="bfin" name="bfin" rows="5" cols="64"></textarea><br />
+		<label for="bfout">Output:</label><br />
+		<textarea id="bfout" name="bfout" rows="5" cols="64"></textarea><br />
+		<textarea id="bfhex" name="bfhex" rows="5" cols="64"></textarea><br />
+		<input id="run" type="button" value="Run" /><span id="time"></span> ms.
+		<p>Date: 2011.07.14</p>
+	</body>
+	<script type="text/javascript">
+	 	//<![CDATA[
+		document.getElementById('run').onclick = function() {
+			var output = Array();
+			var input = document.getElementById('bfin').value.split('');
+
+			try {
+				var t1 = new Date();
+				output = bf(document.getElementById('bfsrc').value, input);
+				var elapsed = (new Date() - t1);
+
+				document.getElementById('time').innerHTML = elapsed;
+			} catch(s) {
+				window.alert(s);
+			}
+
+			document.getElementById('bfout').innerHTML = "";
+			for(i=0,l=output.length;i<l;i++){
+				document.getElementById('bfout').innerHTML += String.fromCharCode(output[i]);
+			}
+			document.getElementById('bfhex').innerHTML = output;
+		}
+		//]]>
+	</script>
+</html>
